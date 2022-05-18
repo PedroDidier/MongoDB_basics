@@ -16,7 +16,7 @@ db.PontosTuristicos.insertMany([{
     popularidade:3
 },
 {
-    nome: "Alto da Sé",
+    nome: "Alto da Se",
     categoria: "Historico",
     cep: "53120-100",
     custoVisita:0,
@@ -192,8 +192,8 @@ db.PontosTuristicos.insertMany([{
 }
 ])
 
-// Insere as cidades por insertMany e salva os pontos turisticos por referencia
-db.Cidades.insertMany(
+// Insere as cidades por insertOne e salva os pontos turisticos por referencia
+db.Cidades.insertOne(
     {
         nome: "Recife",
         qHabitantes: 1555000,
@@ -212,21 +212,25 @@ db.Cidades.insertMany(
             db.PontosTuristicos.findOne({nome: "Museu do estado de Pernambuco"})._id,
             db.PontosTuristicos.findOne({nome: "Museu cais do sertao"})._id
         ]
-    },
+    }
+);
+db.Cidades.insertOne(
     {
         nome: "Olinda",
         qHabitantes: 393115,
         temPraia: true,
         regiao: "RMR",
         pontos: [
-            db.PontosTuristicos.findOne({nome: "Alto da Sé"})._id,
+            db.PontosTuristicos.findOne({nome: "Alto da Se"})._id,
             db.PontosTuristicos.findOne({nome: "Santuário mae rainha"})._id,
             db.PontosTuristicos.findOne({nome: "Igreja da se"})._id,
             db.PontosTuristicos.findOne({nome: "Mirabilandia"})._id,
             db.PontosTuristicos.findOne({nome: "Boi e brasa"})._id,
             db.PontosTuristicos.findOne({nome: "Espaco ciencia"})._id
         ]
-    },
+    }
+);
+db.Cidades.insertOne(
     {
         nome: "Paulista",
         qHabitantes: 334376,
@@ -237,7 +241,9 @@ db.Cidades.insertMany(
             db.PontosTuristicos.findOne({nome: "Igreja de nossa senhora do O"})._id,
             db.PontosTuristicos.findOne({nome: "Pontal de maria farinha"})._id
         ]
-    },
+    }
+);
+db.Cidades.insertOne(
     {
         nome: "Ipojuca",
         qHabitantes: 94533,
@@ -248,7 +254,9 @@ db.Cidades.insertMany(
             db.PontosTuristicos.findOne({nome: "Pontal de maracaipe"})._id,
             db.PontosTuristicos.findOne({nome: "Barcacheira"})._id
         ]
-    },
+    }
+);
+db.Cidades.insertOne(
     {
         nome: "Gravata",
         qHabitantes: 85309,
@@ -259,7 +267,9 @@ db.Cidades.insertMany(
             db.PontosTuristicos.findOne({nome: "Centro de Gravata"})._id,
             db.PontosTuristicos.findOne({nome: "Barcacheira"})._id
         ]
-    },
+    }
+);
+db.Cidades.insertOne(
     {
         nome: "Garanhuns",
         qHabitantes: 140577,
@@ -270,11 +280,11 @@ db.Cidades.insertMany(
             db.PontosTuristicos.findOne({nome: "Parque dos eucaliptos"})._id
         ]
     }
-)
+);
 
 
-// Insere os pacotes da empresa ViajaAgora por insertMany e salva as cidades do pacote por referencia
-db.Pacotes.insertMany(
+// Insere os pacotes da empresa ViajaAgora por insertOne e salva as cidades do pacote por referencia
+db.Pacotes.insertOne(
     {
         nome: "RMR tour completo",
         preco: 1500,
@@ -283,7 +293,9 @@ db.Pacotes.insertMany(
             db.Cidades.findOne({nome: "Olinda"})._id,
             db.Cidades.findOne({nome: "Paulista"})._id
         ]
-    },
+    }
+);
+db.Pacotes.insertOne(
     {
         nome: "Aventura de carnaval",
         preco: 900,
@@ -291,7 +303,9 @@ db.Pacotes.insertMany(
             db.Cidades.findOne({nome: "Recife"})._id,
             db.Cidades.findOne({nome: "Olinda"})._id
         ]
-    },
+    }
+);
+db.Pacotes.insertOne(
     {
         nome: "Agreste como voce nunca viu",
         preco: 600,
@@ -301,8 +315,9 @@ db.Pacotes.insertMany(
         ]
     }
 );
-// Insere os pacotes da empresa ViajeBem por insertMany e salva as cidades do pacote por referencia
-db.Pacotes.insertMany(
+
+// Insere os pacotes da empresa ViajeBem por insertOne e salva as cidades do pacote por referencia
+db.Pacotes.insertOne(
     {
         nome: "Conheca pernambuco",
         preco: 2500,
@@ -314,7 +329,9 @@ db.Pacotes.insertMany(
             db.Cidades.findOne({nome: "Garanuns"})._id,
             db.Cidades.findOne({nome: "Ipojuca"})._id
         ]
-    },
+    }
+);
+db.Pacotes.insertOne(
     {
         nome: "Praias pernambucanas",
         preco: 1250,
@@ -323,7 +340,9 @@ db.Pacotes.insertMany(
             db.Cidades.findOne({nome: "Olinda"})._id,
             db.Cidades.findOne({nome: "Ipojuca"})._id
         ]
-    },
+    }
+);
+db.Pacotes.insertOne(
     {
         nome: "Sao Joao empolgante",
         preco: 1050,
@@ -332,7 +351,9 @@ db.Pacotes.insertMany(
             db.Cidades.findOne({nome: "Gravata"})._id,
             db.Cidades.findOne({nome: "Garanhuns"})._id
         ]
-    },
+    }
+);
+db.Pacotes.insertOne(
     {
         nome: "Saindo da RMR",
         preco: 1340,
@@ -343,6 +364,7 @@ db.Pacotes.insertMany(
         ]
     }
 );
+
 
 // Insere a agencia de turismo ViajaAgora e referencia seus pacotes
 db.Agencias.insertOne(
@@ -362,6 +384,7 @@ db.Agencias.insertOne(
         ]
     }
 );
+
 // Insere a agencia de turismo ViajeBem e referencia seus pacotes
 db.Agencias.insertOne(
     {
