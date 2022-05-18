@@ -326,7 +326,7 @@ db.Pacotes.insertOne(
             db.Cidades.findOne({nome: "Olinda"})._id,
             db.Cidades.findOne({nome: "Paulista"})._id,
             db.Cidades.findOne({nome: "Gravata"})._id,
-            db.Cidades.findOne({nome: "Garanuns"})._id,
+            db.Cidades.findOne({nome: "Garanhuns"})._id,
             db.Cidades.findOne({nome: "Ipojuca"})._id
         ]
     }
