@@ -3,6 +3,7 @@
 db.PontosTuristicos.find();
 // Acha todos os documentos de cidade que tem praia
 db.Cidades.find({ temPraia: true });
+// 30. FINDONE 
 // Acha o documento correspondente a cidade de olinda
 db.Cidades.findOne({ nome: "Olinda" });
 
@@ -79,7 +80,7 @@ db.PontosTuristicos.find({
     var value = this.custoVisita > 0
     return value
   },
-})
+});
 
 // 17. MAPREDUCE
 //Cria um DB com todas as regiões e seu total de população
@@ -89,7 +90,7 @@ db.Cidades.mapReduce(
   {
     out: "soma-regiao"
   }
-)
+);
 
 
 //20. ALL, 22. TEXT, 23. SEARCH
@@ -112,7 +113,7 @@ db.Agencias.find({
       }
     }
   ]
-})
+});
 
 // 11. MAX
 // Agrupa os pontos turisticos pela sua popularidade, e retorna os ponstos com custos mais caros
@@ -126,15 +127,51 @@ db.PontosTuristicos.aggregate(
         }
     }
   ]
-)
+);
 
-// 25 UPDATE, 21 SET
-// Seleciona os pontos turisticos com popularidade igual a 5, e substitui o seu custo de visita para 50
-db.PontosTuristicos.update(
-  { 'popularidade': 5 },
-  { $set:{'custoVisita': 50}},
-  { multi:true}
-)
+// 25. UPDATE, 21. SET
+// Adiciona o atributo principalAtrativo para cada cidade e o define
+db.Cidades.update({nome : "Olinda"}, 
+                  {$set : {'principalAtrativo' : "Historico"}});
+db.Cidades.update({nome : "Recife"}, 
+                  {$set : {'principalAtrativo' : "Diversao"}});
+db.Cidades.update({nome : "Paulista"}, 
+                  {$set : {'principalAtrativo' : "Praia"}});
+db.Cidades.update({nome : "Ipojuca"}, 
+                  {$set : {'principalAtrativo' : "Praia"}});
+db.Cidades.update({nome : "Gravata"}, 
+                  {$set : {'principalAtrativo' : "Restaurante"}});
+db.Cidades.update({nome : "Garanhuns"}, 
+                  {$set : {'principalAtrativo' : "Religioso"}});                                               
+
+// 26. SAVE, 31. ADDTOSET
+// O comando save quando nao tem parametro de id funciona como insert. Nesse caso estamos inserindo um ponto turistico
+db.PontosTuristicos.save( {
+  nome: "Estadio do Arruda",
+  categoria: "Esportes",
+  cep: "51020-111",
+  custoVisita: 20,
+  popularidade: 2,
+});
+// Em seguida, adicionamos uma referencia a esse ponto no array de pontos turisticos de Recife
+db.Cidades.updateOne(
+  { nome: "Recife" },
+  { $addToSet: { pontos: db.PontosTuristicos.findOne({ nome: "Estadio do Arruda" })._id } }
+);
+
+// 29. LOOKUP
+// Retorna 5 pontos turisticos associados a cidades que tem como principal atrativo a mesma coisa que o ponto
+db.PontosTuristicos.aggregate([
+  {
+  $lookup: {
+      from: "Cidades",
+      localField: "categoria",
+      foreignField: "principalAtrativo",
+      as: "Pontos turisticos exemplo do principal atrativo"
+  }
+},
+{$limit: 5}
+]);
 
 // 27. RENAMECOLLECTION
 //Essa operação irá renomear a collection PontosTuristicos para Pontos_Turisticos
