@@ -349,7 +349,7 @@ db.Pacotes.insertOne({
 // Insere a agencia de turismo ViajaAgora e referencia seus pacotes
 db.Agencias.insertOne({
   CNPJ: "111",
-  nome: "ViajaAgora",
+  nome: "Viaja Agora",
   receitaAnual: 1000000,
   guias: [
     {
@@ -378,7 +378,7 @@ db.Agencias.insertOne({
 // Insere a agencia de turismo ViajeBem e referencia seus pacotes
 db.Agencias.insertOne({
   CNPJ: "222",
-  nome: "ViajeBem",
+  nome: "Viaje Bem",
   receitaAnual: 2000000,
   guias: [
     {

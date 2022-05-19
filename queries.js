@@ -71,3 +71,45 @@ db.Agencias.aggregate([
     },
   },
 ]).pretty();
+
+// 16. $WHERE, 18. FUNCTION
+// Retorna os pontos turísticos com entrada paga
+db.PontosTuristicos.find({
+  $where: function() {
+    var value = this.custoVisita > 0
+    return value
+  },
+})
+
+// 17. MAPREDUCE
+//Cria um DB com todas as regiões e seu total de população
+db.Cidades.mapReduce(
+  function() { emit( this.regiao, this.qHabitantes)},
+  function(key, values) { return(Array.sum( values ))},
+  {
+    out: "soma-regiao"
+  }
+)
+
+
+//20. ALL, 22. TEXT, 23. SEARCH
+//Cria um índice para o nome das Agências, após isso, retorna a(s) agência(s) que possuem os guias "Pedro Tenorio" e "Pedro Didier" e possuem "Viaja" no nome
+db.Agencias.createIndex( { nome: "text" } )
+
+db.Agencias.find({
+  $and: [
+    {
+      guias: {
+        $all: [
+          { "$elemMatch" : { nome: "Pedro Tenorio" } },
+          { "$elemMatch" : { nome: "Pedro Didier" } }
+        ]
+      }
+    },
+    {
+      $text: {
+        $search: "Viaja"
+      }
+    }
+  ]
+})
