@@ -55,7 +55,7 @@ db.Cidades.aggregate([
   },
 ]);
 
-// 7. GTE, 24. FILTER, 19. PRETTY
+// 7. GTE, 24. FILTER, 19. PRETTY, 28. COND
 // Retorna as agências e seus guias que foram contratados depois de 1 de janeiro de 2021
 db.Agencias.aggregate([
   {
