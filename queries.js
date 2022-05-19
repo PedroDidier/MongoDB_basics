@@ -113,3 +113,29 @@ db.Agencias.find({
     }
   ]
 })
+
+// 11. MAX
+// Agrupa os pontos turisticos pela sua popularidade, e retorna os ponstos com custos mais caros
+db.PontosTuristicos.aggregate(
+  [
+    {
+      $group:
+        {
+          _id: "$popularidade",
+          custoVisita: { $max: "$custoVisita" }
+        }
+    }
+  ]
+)
+
+// 25 UPDATE, 21 SET
+// Seleciona os pontos turisticos com popularidade igual a 5, e substitui o seu custo de visita para 50
+db.PontosTuristicos.update(
+  { 'popularidade': 5 },
+  { $set:{'custoVisita': 50}},
+  { multi:true}
+)
+
+// 27. RENAMECOLLECTION
+//Essa operação irá renomear a collection PontosTuristicos para Pontos_Turisticos
+db.PontosTuristicos.renameCollection("Pontos_Turisticos")
